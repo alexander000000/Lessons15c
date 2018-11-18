@@ -1,0 +1,5 @@
+<level-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:minLevel="1" android:maxLevel="1" android:drawable="@drawable/ic_nap_close" />
+    <item android:minLevel="2" android:maxLevel="2" android:drawable="@drawable/ic_nap_open" />
+    <item android:minLevel="3" android:maxLevel="3" android:drawable="@drawable/ic_oval" />
+</level-list>

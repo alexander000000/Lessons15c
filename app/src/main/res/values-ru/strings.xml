@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Игра в наперстки</string>
+    <string name="buttonText">Новая игра</string>
+    <string name="info">Выберите наперсток</string>
+    <string name="helpText">мяч в наперстке № %1$d</string>
+    <string name="score">Вы выйграли %1$d из %2$d игр!</string>
+</resources>

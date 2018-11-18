@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Game thimble</string>
+    <string name="buttonText">New Game</string>
+    <string name="info">Select thimble</string>
+    <string name="helpText">Ball in thimble number %1$d</string>
+    <string name="score"> You win %1$d in %2$d games!</string>
+</resources>
