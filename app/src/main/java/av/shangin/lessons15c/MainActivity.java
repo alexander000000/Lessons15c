@@ -29,16 +29,13 @@ public class MainActivity extends AppCompatActivity {
     public  final static int BALL =3;
 
 
-    private boolean[] ballInThimble=null;
-
-
     private boolean userIsPress =false;
 
     private int mUserCountWins =0;
     private int mUserCountLost =0;
 
     private  Random rand;
-
+    private  int mWhereIsBall=0;
 
 
     @Override
@@ -56,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         mText = findViewById(R.id.textView);
         mScore = findViewById(R.id.tvScore);
 
-        Log.d("MainActivity","onCreate");
+        //Log.d("MainActivity","onCreate");
         setDrawable();
 
         if (!userIsPress) initGame();
@@ -70,9 +67,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(!userIsPress) {
-                    Log.d("MainActivity","imageViewLeft");
+                    //Log.d("MainActivity","imageViewLeft ball in==="+mWhereIsBall);
                     userIsPress = true;
                     //mText.setText("imageViewLeft");
+
                     imageViewLeft.getDrawable().setLevel(getLevel(0)); //0 - t.k. left
                     updateScroll();
                 }
@@ -82,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!userIsPress) {
-                    Log.d("MainActivity","imageViewCenter");
+                    //Log.d("MainActivity","imageViewCenter ball in=="+mWhereIsBall);
                     userIsPress = true;
                     //mText.setText("imageViewCenter");
                     imageViewCenter.getDrawable().setLevel(getLevel(1)); //0 - t.k. center
@@ -94,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!userIsPress) {
-                    Log.d("MainActivity","imageViewRight");
+                    //Log.d("MainActivity","imageViewRight ball in="+mWhereIsBall);;
                     userIsPress = true;
                     //mText.setText("imageViewRight");
                     imageViewRight.getDrawable().setLevel(getLevel(2)); //0 - t.k. right
@@ -108,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         mNewGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("MainActivity","mNewGame");
+                //Log.d("MainActivity","mNewGame");
                 initGame();
                 updateScroll();
 
@@ -122,7 +120,8 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putInt("mUserCountWins", mUserCountWins);
         outState.putInt("mUserCountLost", mUserCountLost);
-        Log.d("MainActivity","onSaveInstanceState");
+        outState.putInt("mWhereIsBall", mWhereIsBall);
+        //Log.d("MainActivity","onSaveInstanceState");
         //og.d(LOG_TAG, "onSaveInstanceState");
     }
 
@@ -130,8 +129,9 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         mUserCountWins = savedInstanceState.getInt("mUserCountWins");
         mUserCountLost = savedInstanceState.getInt("mUserCountLost");
+        mWhereIsBall = savedInstanceState.getInt("mWhereIsBall");
         //Log.d(LOG_TAG, "onRestoreInstanceState");
-        Log.d("MainActivity","onRestoreInstanceState");
+        //Log.d("MainActivity","onRestoreInstanceState");
         updateScroll();
     }
 
@@ -149,40 +149,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setBall() {
-        int x =rand.nextInt(COUNT_THIMBLE);
+        mWhereIsBall =rand.nextInt(COUNT_THIMBLE);
         String res = getString(R.string.helpText);
-        mText.setText(String.format(res,(x+1)));
-        //
-        ballInThimble[x]=true;
+        mText.setText(String.format(res,(mWhereIsBall+1)));
+        //Log.d("MainActivity","setBall. ball in ="+mWhereIsBall);
+        //for (int x : ballInThimble){
+        //    x=0;
+        //}
+        //ballInThimble[mWhereIsBall]=1;
 
     }
 
     private void updateScroll() {
 
         String res1 = getString(R.string.score);
-        Log.d("MainActivity","updateScroll"+mUserCountWins+"/"+mUserCountLost);
+        //Log.d("MainActivity","updateScroll"+mUserCountWins+"/"+mUserCountLost);
 
         mScore.setText(String.format(res1,mUserCountWins, mUserCountLost));
     }
 
-    private int getLevel(int i) {
+    private int getLevel(int ir) {
 
-
-
-        if (ballInThimble[i]==true){
+        //Log.d("MainActivity","getLevel i="+ir+" and mWhereIsBall="+mWhereIsBall);
+        //mWhereIsBall
+        if (ir==mWhereIsBall){
             mUserCountWins++;
             mUserCountLost++;
             return BALL;
-
         }
         else {
-           if (userIsPress) {
-               mUserCountLost++;
-               return OPEN_NAP;
-           } else {
-               return CLOSE_NAP;
-           }
+            if (userIsPress) {
+                mUserCountLost++;
+                //Log.d("MainActivity","getLevel OPEN_NAP");
+                return OPEN_NAP;
+            } else {
+                //Log.d("MainActivity","getLevel CLOSE_NAP");
+                return CLOSE_NAP;
+            }
         }
+
 
     }
 
@@ -194,11 +199,6 @@ public class MainActivity extends AppCompatActivity {
         imageViewCenter.getDrawable().setLevel(CLOSE_NAP);
         imageViewRight.getDrawable().setLevel(CLOSE_NAP);
 
-        if (ballInThimble==null) ballInThimble = new boolean[COUNT_THIMBLE];
-
-        for (boolean x : ballInThimble){
-            x=false;
-        }
         setBall();
 
     }
