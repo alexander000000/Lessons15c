@@ -59,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
         if (!userIsPress) initGame();
         updateScroll();
 
-        //-----
-
         //------
         imageViewLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
         imageViewCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
         imageViewRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
 
 
         mNewGame.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         outState.putInt("mUserCountLost", mUserCountLost);
         outState.putInt("mWhereIsBall", mWhereIsBall);
         //Log.d("MainActivity","onSaveInstanceState");
-        //og.d(LOG_TAG, "onSaveInstanceState");
+
     }
 
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         mUserCountWins = savedInstanceState.getInt("mUserCountWins");
         mUserCountLost = savedInstanceState.getInt("mUserCountLost");
         mWhereIsBall = savedInstanceState.getInt("mWhereIsBall");
-        //Log.d(LOG_TAG, "onRestoreInstanceState");
+
         //Log.d("MainActivity","onRestoreInstanceState");
         updateScroll();
     }
@@ -141,22 +141,12 @@ public class MainActivity extends AppCompatActivity {
         imageViewCenter.setImageResource(R.drawable.level_list);
         imageViewRight.setImageResource(R.drawable.level_list);
 
-
-        //imageViewLeft.setImageResource(R.drawable.level);
-        //imageViewCenter.setImageResource(R.drawable.level);
-        //imageViewRight.setImageResource(R.drawable.level);
-
     }
 
     private void setBall() {
         mWhereIsBall =rand.nextInt(COUNT_THIMBLE);
         String res = getString(R.string.helpText);
         mText.setText(String.format(res,(mWhereIsBall+1)));
-        //Log.d("MainActivity","setBall. ball in ="+mWhereIsBall);
-        //for (int x : ballInThimble){
-        //    x=0;
-        //}
-        //ballInThimble[mWhereIsBall]=1;
 
     }
 
